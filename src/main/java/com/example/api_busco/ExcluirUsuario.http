@@ -1,0 +1,1 @@
+DELETE http://localhost:8181/api/usuarios/excluir/120

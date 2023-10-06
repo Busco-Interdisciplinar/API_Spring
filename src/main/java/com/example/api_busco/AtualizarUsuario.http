@@ -1,0 +1,9 @@
+#PUT http://localhost:8181/api/usuarios/atualizar/12
+#Content-Type: application/json
+#
+#{
+#  "nome":"Ismael",
+#  "descricao": "Carne de boi",
+#  "preco": "00.09",
+#  "quantidadeestoque": "2"
+#}
