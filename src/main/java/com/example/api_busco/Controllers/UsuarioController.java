@@ -50,6 +50,16 @@ import java.util.List;
          }
      }
 
+     @GetMapping("/enviarSms/{numero}")
+     public ResponseEntity<ApiResponse> enviarSms(@PathVariable String numero){
+        ApiResponse response = usuarioService.enviarSms(numero);
+         if (response.isResponseSucessfull()){
+             return ResponseEntity.ok(response);
+         }else{
+             return ResponseEntity.badRequest().body(response);
+         }
+     }
+
      @DeleteMapping("/excluir/{id}")
      public ResponseEntity<ApiResponse> excluirProduto(@PathVariable Integer id){
          ApiResponse response = usuarioService.deleteById(id);

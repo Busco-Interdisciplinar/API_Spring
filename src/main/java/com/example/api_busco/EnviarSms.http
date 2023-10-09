@@ -1,0 +1,1 @@
+GET http://localhost:8181/api/usuarios/enviarSms/11974882079
