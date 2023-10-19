@@ -1,0 +1,11 @@
+POST http://localhost:8181/api/usuarios/inserirUsuario
+Content-Type: application/json
+
+{
+  "email": "ana.zampier@gmail.com",
+  "senha": "123",
+  "cep": "05145-000",
+  "nome":"Ana Clara Zampier Teixeira",
+  "cpf": "48219701803",
+  "telefone": "1193623263"
+}
