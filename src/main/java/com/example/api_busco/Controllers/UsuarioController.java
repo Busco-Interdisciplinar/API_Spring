@@ -5,6 +5,7 @@ import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,16 +44,6 @@ import java.util.List;
      @PostMapping("/inserirUsuario")
      public ResponseEntity<ApiResponse> inserirPorduto(@RequestBody Usuarios usuario){
          ApiResponse response = usuarioService.cadastrarUsuario(usuario);
-         if (response.isResponseSucessfull()){
-             return ResponseEntity.ok(response);
-         }else{
-             return ResponseEntity.badRequest().body(response);
-         }
-     }
-
-     @GetMapping("/enviarSms/{numero}")
-     public ResponseEntity<ApiResponse> enviarSms(@PathVariable String numero){
-        ApiResponse response = usuarioService.enviarSms(numero);
          if (response.isResponseSucessfull()){
              return ResponseEntity.ok(response);
          }else{
