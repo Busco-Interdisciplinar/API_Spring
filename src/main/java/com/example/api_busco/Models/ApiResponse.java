@@ -9,9 +9,9 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiResponse {
+public class ApiResponse<T> {
     private boolean responseSucessfull;
     private String description;
-    private List<Usuarios> object;
-    private Object aditionalInformation;
+    private List<T> object;
+    private T aditionalInformation;
 }
