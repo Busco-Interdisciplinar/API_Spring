@@ -22,7 +22,7 @@ public class UsuarioService {
     public ApiResponse listarUsuarios(){
         try {
             List<Usuarios> usuarios = usuarioRepository.findAll();
-            return new ApiResponse(true, "Usuários retornados com sucesso", usuarios, null);
+            return new ApiResponse(true, "Usuários retornados com sucesso", Collections.singletonList(usuarios), null);
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao retornar usuários", null, null);
         }
@@ -32,7 +32,7 @@ public class UsuarioService {
         try {
             Usuarios usuarioResponse = usuarioRepository.save(usuario);
             List<Usuarios> usuariosList = Collections.singletonList(usuarioResponse);
-            return new ApiResponse(true, "Usuário inserido com sucesso", usuariosList, null);
+            return new ApiResponse(true, "Usuário inserido com sucesso", Collections.singletonList(usuariosList), null);
         }catch (Exception exception){
             return new ApiResponse(false, "Usuário já existe no banco", null, null);
         }
@@ -43,7 +43,7 @@ public class UsuarioService {
             Usuarios usuario = usuarioRepository.findByEmail(email);
             List<Usuarios> usuariosList = Collections.singletonList(usuario);
             if (usuario != null && usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)){
-                return new ApiResponse(true, "Usuário logado com sucesso", usuariosList, null);
+                return new ApiResponse(true, "Usuário logado com sucesso", Collections.singletonList(usuariosList), null);
             }else{
                 return new ApiResponse(false, "Email ou senha incorretos", null, null);
             }
@@ -59,7 +59,7 @@ public class UsuarioService {
                 usuarioRepository.deleteById(id);
                 usuarioRepository.findById(id);
                 List<Usuarios> usuario = Collections.singletonList(usuarioFound.get());
-                return new ApiResponse(true, "Usuário deletado com sucesso", usuario, null);
+                return new ApiResponse(true, "Usuário deletado com sucesso", Collections.singletonList(usuario), null);
             }else{
                 return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
             }
