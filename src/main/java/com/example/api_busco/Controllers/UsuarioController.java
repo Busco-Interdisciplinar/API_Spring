@@ -5,16 +5,13 @@ import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
     @RequestMapping("/api/usuarios")
     public class UsuarioController {
 
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @Autowired
     public UsuarioController(UsuarioService usuarioService) {
@@ -22,7 +19,7 @@ import java.util.List;
     }
 
     @GetMapping("/listarUsuarios")
-     public ResponseEntity<ApiResponse> listarProdutos() {
+     public ResponseEntity<ApiResponse> listarUsuarios() {
          ApiResponse response  = usuarioService.listarUsuarios();
         if (response.isResponseSucessfull()){
             return ResponseEntity.ok(response);
@@ -32,7 +29,7 @@ import java.util.List;
      }
 
     @GetMapping("/login/{email}/{senha}")
-    public ResponseEntity<ApiResponse> getProdutoPorId(@PathVariable String email, @PathVariable String senha){
+    public ResponseEntity<ApiResponse> logar(@PathVariable String email, @PathVariable String senha){
        ApiResponse response = usuarioService.login(email, senha);
        if (response.isResponseSucessfull()){
            return ResponseEntity.ok(response);
@@ -42,7 +39,7 @@ import java.util.List;
     }
 
      @PostMapping("/inserirUsuario")
-     public ResponseEntity<ApiResponse> inserirPorduto(@RequestBody Usuarios usuario){
+     public ResponseEntity<ApiResponse> inserirUsuario(@RequestBody Usuarios usuario){
          ApiResponse response = usuarioService.cadastrarUsuario(usuario);
          if (response.isResponseSucessfull()){
              return ResponseEntity.ok(response);
@@ -52,8 +49,18 @@ import java.util.List;
      }
 
      @DeleteMapping("/excluir/{id}")
-     public ResponseEntity<ApiResponse> excluirProduto(@PathVariable Integer id){
+     public ResponseEntity<ApiResponse> excluirUsuario(@PathVariable Integer id){
          ApiResponse response = usuarioService.deleteById(id);
+         if (response.isResponseSucessfull()){
+             return ResponseEntity.ok(response);
+         }else{
+             return ResponseEntity.badRequest().body(response);
+         }
+     }
+
+     @GetMapping("/buscarEmail/{email}")
+    public ResponseEntity<ApiResponse> findByemail(@PathVariable String email){
+         ApiResponse response = usuarioService.findByEmail(email);
          if (response.isResponseSucessfull()){
              return ResponseEntity.ok(response);
          }else{
