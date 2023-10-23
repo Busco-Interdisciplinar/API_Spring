@@ -5,8 +5,6 @@ import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
 import java.util.*;
 
@@ -57,7 +55,6 @@ public class UsuarioService {
             Optional<Usuarios> usuarioFound = usuarioRepository.findById(id);
             if (usuarioFound.isPresent()){
                 usuarioRepository.deleteById(id);
-                usuarioRepository.findById(id);
                 List<Usuarios> usuario = Collections.singletonList(usuarioFound.get());
                 return new ApiResponse(true, "Usuário deletado com sucesso", Collections.singletonList(usuario), null);
             }else{
@@ -65,6 +62,20 @@ public class UsuarioService {
             }
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao deletar usuário", null, null);
+        }
+    }
+
+    public ApiResponse findByEmail(String email) {
+        try {
+            Usuarios usuarioFound = usuarioRepository.findByEmail(email);
+            if (usuarioFound != null){
+                List<Usuarios> usuario = Collections.singletonList(usuarioFound);
+                return new ApiResponse(true, "Usuário encontrado com sucesso", Collections.singletonList(usuario), null);
+            }else{
+                return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar usuário", null, null);
         }
     }
 }
