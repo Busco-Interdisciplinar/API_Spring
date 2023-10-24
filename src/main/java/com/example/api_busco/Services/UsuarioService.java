@@ -3,6 +3,7 @@ package com.example.api_busco.Services;
 import com.example.api_busco.Models.ApiResponse;
 import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Repositorys.UsuarioRepository;
+import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +77,39 @@ public class UsuarioService {
             }
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao buscar usuário", null, null);
+        }
+    }
+
+    public ApiResponse findByCpfOrEmailOrTelefone(String cpf, String email, String telefone) {
+        try {
+            List<Usuarios> usuariosFound = usuarioRepository.findByCpfOrEmailOrTelefone(cpf, email, telefone);
+            if (usuariosFound.size() != 0){
+                boolean cpfExiste = false;
+                boolean emailExiste = false;
+                boolean telefoneExiste = false;
+                for (Usuarios usuario: usuariosFound
+                     ) {
+                    if (usuario.getCpf().equals(cpf)){
+                        cpfExiste = true;
+                    }
+                    if (usuario.getEmail().equals(email)){
+                        emailExiste = true;
+                    }
+                    if (usuario.getTelefone().equals(telefone)){
+                        telefoneExiste = true;
+                    }
+                }
+                String camposExistentes = "{" +
+                        "cpf:" + cpfExiste + "," +
+                        "email:" + emailExiste + "," +
+                        "telefone:"+ telefoneExiste +
+                        "}";
+                return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", Collections.singletonList(usuariosFound), camposExistentes);
+            }else{
+                return new ApiResponse(false, "Usuário não existe no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar informações", null, null);
         }
     }
 }
