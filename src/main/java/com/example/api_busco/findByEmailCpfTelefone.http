@@ -1,0 +1,1 @@
+GET http://localhost:8181/api/usuarios/buscarCpfEmailTelefone?cpf=4821970180&email=ana.zampier@gmail.com&telefone=1193623263
