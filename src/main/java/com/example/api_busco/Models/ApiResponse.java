@@ -13,5 +13,5 @@ public class ApiResponse {
     private boolean responseSucessfull;
     private String description;
     private List<Object> object;
-    private Object aditionalInformation;
+    private String aditionalInformation;
 }
