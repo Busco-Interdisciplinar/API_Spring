@@ -3,7 +3,6 @@ package com.example.api_busco.Services;
 import com.example.api_busco.Models.ApiResponse;
 import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Repositorys.UsuarioRepository;
-import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,7 +100,7 @@ public class UsuarioService {
                 }
                 String camposExistentes = "{" +
                         "cpf:" + cpfExiste + "," +
-                        "email:" + emailExiste + "," +
+                        "email:X'" + emailExiste + "," +
                         "telefone:"+ telefoneExiste +
                         "}";
                 return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", Collections.singletonList(usuariosFound), camposExistentes);
