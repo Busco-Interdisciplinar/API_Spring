@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -20,7 +21,10 @@ public class UsuarioService {
     public ApiResponse listarUsuarios(){
         try {
             List<Usuarios> usuarios = usuarioRepository.findAll();
-            return new ApiResponse(true, "Usuários retornados com sucesso", Collections.singletonList(usuarios), null);
+            List<Object> listaObjetos = usuarios.stream()
+                    .map(usuario -> (Object) usuario)
+                    .toList();
+            return new ApiResponse(true, "Usuários retornados com sucesso", listaObjetos, null);
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao retornar usuários", null, null);
         }
@@ -29,8 +33,9 @@ public class UsuarioService {
     public ApiResponse cadastrarUsuario(Usuarios usuario){
         try {
             Usuarios usuarioResponse = usuarioRepository.save(usuario);
-            List<Usuarios> usuariosList = Collections.singletonList(usuarioResponse);
-            return new ApiResponse(true, "Usuário inserido com sucesso", Collections.singletonList(usuariosList), null);
+            List<Object> usuariosList = new ArrayList<>();
+            usuariosList.add(usuarioResponse);
+            return new ApiResponse(true, "Usuário inserido com sucesso", usuariosList, null);
         }catch (Exception exception){
             return new ApiResponse(false, "Usuário já existe no banco", null, null);
         }
@@ -39,9 +44,10 @@ public class UsuarioService {
     public ApiResponse login(String email, String senha){
         try{
             Usuarios usuario = usuarioRepository.findByEmail(email);
-            List<Usuarios> usuariosList = Collections.singletonList(usuario);
+            List<Object> usuarioList = new ArrayList<>();
+            usuarioList.add(usuario);
             if (usuario != null && usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)){
-                return new ApiResponse(true, "Usuário logado com sucesso", Collections.singletonList(usuariosList), null);
+                return new ApiResponse(true, "Usuário logado com sucesso", usuarioList, null);
             }else{
                 return new ApiResponse(false, "Email ou senha incorretos", null, null);
             }
@@ -55,8 +61,10 @@ public class UsuarioService {
             Optional<Usuarios> usuarioFound = usuarioRepository.findById(id);
             if (usuarioFound.isPresent()){
                 usuarioRepository.deleteById(id);
-                List<Usuarios> usuario = Collections.singletonList(usuarioFound.get());
-                return new ApiResponse(true, "Usuário deletado com sucesso", Collections.singletonList(usuario), null);
+                Usuarios usuario = usuarioFound.get();
+                List<Object> usuarioList = new ArrayList<>();
+                usuarioList.add(usuario);
+                return new ApiResponse(true, "Usuário deletado com sucesso", usuarioList, null);
             }else{
                 return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
             }
@@ -69,8 +77,9 @@ public class UsuarioService {
         try {
             Usuarios usuarioFound = usuarioRepository.findByEmail(email);
             if (usuarioFound != null){
-                List<Usuarios> usuario = Collections.singletonList(usuarioFound);
-                return new ApiResponse(true, "Usuário encontrado com sucesso", Collections.singletonList(usuario), null);
+                List<Object> usuarioList = new ArrayList<>();
+                usuarioList.add(usuarioFound);
+                return new ApiResponse(true, "Usuário encontrado com sucesso", usuarioList, null);
             }else{
                 return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
             }
@@ -82,6 +91,9 @@ public class UsuarioService {
     public ApiResponse findByCpfOrEmailOrTelefone(String cpf, String email, String telefone) {
         try {
             List<Usuarios> usuariosFound = usuarioRepository.findByCpfOrEmailOrTelefone(cpf, email, telefone);
+            List<Object> listaObjetos = usuariosFound.stream()
+                    .map(usuario -> (Object) usuario)
+                    .toList();
             if (usuariosFound.size() != 0){
                 boolean cpfExiste = false;
                 boolean emailExiste = false;
@@ -103,7 +115,7 @@ public class UsuarioService {
                         "email:X'" + emailExiste + "," +
                         "telefone:"+ telefoneExiste +
                         "}";
-                return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", Collections.singletonList(usuariosFound), camposExistentes);
+                return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", listaObjetos, camposExistentes);
             }else{
                 return new ApiResponse(false, "Usuário não existe no banco", null, null);
             }

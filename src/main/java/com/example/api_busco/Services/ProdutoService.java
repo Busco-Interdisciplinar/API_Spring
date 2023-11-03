@@ -22,7 +22,10 @@ public class ProdutoService {
     public ApiResponse listarProdutos(){
         try {
             List<Produto> produtos = produtoRepository.findAll();
-            return new ApiResponse(true, "Produtos retornados com sucesso", Collections.singletonList(produtos), null);
+            List<Object> listaObjetos = produtos.stream()
+                    .map(produto -> (Object) produto)
+                    .toList();
+            return new ApiResponse(true, "Produtos retornados com sucesso", listaObjetos, null);
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao retornar produtos", null, null);
         }
