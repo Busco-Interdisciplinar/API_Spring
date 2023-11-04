@@ -78,6 +78,16 @@ import org.springframework.web.bind.annotation.*;
         }
     }
 
+    @PatchMapping("/resetarSenha/{email}/{novaSenha}")
+    public ResponseEntity<ApiResponse> resetSenha(@PathVariable String email, @PathVariable String novaSenha){
+        ApiResponse response = usuarioService.resetSenha(email, novaSenha);
+        if (response.isResponseSucessfull()){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
 
 
 //     @PutMapping("/atualizar/{id}")

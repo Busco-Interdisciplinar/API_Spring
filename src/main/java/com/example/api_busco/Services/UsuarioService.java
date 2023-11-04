@@ -112,7 +112,7 @@ public class UsuarioService {
                 }
                 String camposExistentes = "{" +
                         "cpf:" + cpfExiste + "," +
-                        "email:X'" + emailExiste + "," +
+                        "email:'" + emailExiste + "," +
                         "telefone:"+ telefoneExiste +
                         "}";
                 return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", listaObjetos, camposExistentes);
@@ -121,6 +121,23 @@ public class UsuarioService {
             }
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao buscar informações", null, null);
+        }
+    }
+
+    public ApiResponse resetSenha(String email, String novaSenha){
+        try {
+            Usuarios usuarioFound = usuarioRepository.findByEmail(email);
+            if (usuarioFound != null){
+                usuarioFound.setSenha(novaSenha);
+                Usuarios usuarioAlterado = usuarioRepository.save(usuarioFound);
+                List<Object> usuarioList = new ArrayList<>();
+                usuarioList.add(usuarioAlterado);
+                return new ApiResponse(true, "Senha alterada com sucesso", usuarioList, null);
+            }else{
+                return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar usuário", null, null);
         }
     }
 }
