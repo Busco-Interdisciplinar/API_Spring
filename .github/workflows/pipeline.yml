@@ -18,5 +18,5 @@ jobs:
     - uses: johnbeynon/render-deploy-action@v0.0.8
       name: Deploy Application
       with:
-        service-id: 'srv-ckrbudprfc9c73e65fog?key=jXu2sKtJ0Nw'
+        service-id: 'ckrbudprfc9c73e65fog?key=jXu2sKtJ0Nw'
         api-key: 'rnd_BwbI2mNR0MqEgcTo5PKPHlbCn7CL'
