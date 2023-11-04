@@ -1,12 +1,24 @@
-name: Pipeline PROD Deploy
+name: Pipeline deploy API PROD on Render
 on:
+  push:
+    branches: ["PROD"]
   pull_request:
     branches: ["PROD"]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Deploy
-      run: |
-        curl "https://api.render.com/deploy/srv-ckrbudprfc9c73e65fog?key=jXu2sKtJ0Nw"
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '19'
+        distribution: 'corretto'
+    - name: Check DEPLOY_HOOK_PROD secret
+      run: echo ${{secrets.DEPLOY_HOOK_PROD}}
+    - uses: johnbeynon/render-deploy-action@v0.0.8
+      name: Deploy Application
+      with:
+        service-id: ${{secrets.DEPLOY_HOOK_PROD}}
+        api-key: ${{secrets.API_KEY}}
