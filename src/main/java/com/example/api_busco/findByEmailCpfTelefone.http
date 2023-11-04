@@ -1,1 +1,1 @@
-GET http://localhost:8181/api/usuarios/buscarCpfEmailTelefone?cpf=4821970180&email=ana.zampier@gmail.com&telefone=1193623263
+GET http://localhost:8181/api/usuarios/buscarCpfEmailTelefone?cpf=48558381879&email=lucasgsilva011073@gmail.com&telefone=11974882079
