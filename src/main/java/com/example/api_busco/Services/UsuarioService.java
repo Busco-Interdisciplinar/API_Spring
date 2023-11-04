@@ -112,7 +112,7 @@ public class UsuarioService {
                 }
                 String camposExistentes = "{" +
                         "cpf:" + cpfExiste + "," +
-                        "email:'" + emailExiste + "," +
+                        "email:" + emailExiste + "," +
                         "telefone:"+ telefoneExiste +
                         "}";
                 return new ApiResponse(true, "Alguma informação recebida foi encontrada no banco", listaObjetos, camposExistentes);
