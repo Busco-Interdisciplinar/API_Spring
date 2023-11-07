@@ -1,0 +1,10 @@
+POST http://localhost:8181/api/fornecedor/inserirFornecedor
+Content-Type: application/json
+
+{
+  "cnpj": "397504342423",
+  "telefone": "9736281930",
+  "nome": "Ismael",
+  "email": "ismael@gmail.com",
+  "usuario_padrao": 1
+}
