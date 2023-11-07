@@ -20,7 +20,7 @@ public class RotaService {
     public ApiResponse buscarRota(int rota){
         try{
             List<Rota> rotasResponse = rotaRepository.findRotaByRota(rota);
-            if (rotasResponse != null){
+            if (rotasResponse.get(0) != null){
                 List<Object> listaObjetos = rotasResponse.stream()
                         .map(rotas -> (Object) rotas)
                         .toList();
