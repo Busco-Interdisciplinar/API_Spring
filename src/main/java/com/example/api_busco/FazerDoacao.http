@@ -1,0 +1,10 @@
+POST http://localhost:8181/api/doacao/fazerDoacao
+Content-Type: application/json
+
+{
+  "data_doacao": "2023-02-03",
+  "descricao": "Doacao de uvas",
+  "produto_doado": 1,
+  "usuario_doador": 1,
+  "usuario_padrao": 1
+}

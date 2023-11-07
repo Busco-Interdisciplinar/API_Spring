@@ -1,0 +1,10 @@
+POST http://localhost:8181/api/instituicao/inserirIntistuicao
+Content-Type: application/json
+
+{
+  "cnpj": "397504342423",
+  "cep_sede": "05183201",
+  "nome": "Mercadinho",
+  "telefone": "11973827382",
+  "usuario_padrao": 1
+}
