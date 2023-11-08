@@ -28,7 +28,7 @@ public class RotaService {
             }else{
                 return new ApiResponse(false, "Rota não encontrada no banco", null, null);
             }
-        }catch (Exception e){
+        }catch (Exception exception){
             return new ApiResponse(false, "Falha ao buscar a rota", null, null);
         }
     }
