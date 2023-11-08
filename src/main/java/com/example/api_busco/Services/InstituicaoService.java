@@ -1,6 +1,7 @@
 package com.example.api_busco.Services;
 
 import com.example.api_busco.Models.ApiResponse;
+import com.example.api_busco.Models.Fornecedor;
 import com.example.api_busco.Models.Instituicao;
 import com.example.api_busco.Repositorys.InsituicaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,21 @@ public class InstituicaoService {
             return new ApiResponse(true, "Instituição cadastrado com sucesso", instituicaoList, null);
         }catch (Exception exception){
             return new ApiResponse(false, "Falha ao cadastrar Instituição", null, null);
+        }
+    }
+
+    public ApiResponse findByUserId(int id) {
+        try {
+            Instituicao instituicao = insituicaoRepository.findInstituicaoByUsuario_padrao(id);
+            if (instituicao != null){
+                List<Object> instituicaoList = new ArrayList<>();
+                instituicaoList.add(instituicao);
+                return new ApiResponse(true, "Instituição encontrada com sucesso", instituicaoList, null);
+            }else{
+                return new ApiResponse(false, "Instituição não encontrada no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar Instituição", null, null);
         }
     }
 }
