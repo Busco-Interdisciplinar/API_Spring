@@ -1,1 +1,1 @@
-GET http://localhost:8181/api/instituicao/buscarUserId/
+GET http://localhost:8181/api/instituicao/buscarUserId/2

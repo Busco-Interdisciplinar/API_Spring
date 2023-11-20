@@ -140,4 +140,22 @@ public class UsuarioService {
             return new ApiResponse(false, "Falha ao buscar usuário", null, null);
         }
     }
+
+    public ApiResponse atualizarFoto(Integer id, String foto){
+        try {
+            Optional<Usuarios> usuarioFound = usuarioRepository.findById(id);
+            if (usuarioFound.isPresent()){
+                Usuarios usuarioEncontrado = usuarioFound.get();
+                usuarioEncontrado.setFoto(foto);
+                Usuarios usuarioAlterado = usuarioRepository.save(usuarioEncontrado);
+                List<Object> usuarioList = new ArrayList<>();
+                usuarioList.add(usuarioAlterado);
+                return new ApiResponse(true, "Foto alterada com sucesso", usuarioList, null);
+            }else{
+                return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar usuário", null, null);
+        }
+    }
 }

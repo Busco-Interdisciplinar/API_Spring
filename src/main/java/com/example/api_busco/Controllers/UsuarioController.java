@@ -88,6 +88,16 @@ import org.springframework.web.bind.annotation.*;
         }
     }
 
+    @PatchMapping("/atualizarFoto/{id}/{foto}")
+    public ResponseEntity<ApiResponse> atualizarFoto(@PathVariable Integer id, @PathVariable String foto){
+        ApiResponse response = usuarioService.atualizarFoto(id, foto);
+        if (response.isResponseSucessfull()){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
 
 
 //     @PutMapping("/atualizar/{id}")
