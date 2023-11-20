@@ -59,3 +59,4 @@ Models (Modelos):
 As classes de modelo, como `Doacao`, `Fornecedor`, `Instituicao`, `Produto`, `Rota` e `Usuarios`, representam as entidades de dados que são armazenadas no banco de dados. Essas classes são anotadas com informações de mapeamento JPA para definir como elas são persistidas no banco de dados.
 ApiResponse (Resposta da API):
 A classe `ApiResponse` é usada para encapsular as respostas da API. Ela fornece informações sobre o resultado de uma operação, mensagens descritivas, dados retornados e, em alguns casos, informações adicionais, como no caso do método `findByCpfOrEmailOrTelefone`, que informa quais campos existem no banco de dados correspondendo aos critérios da consulta.
+

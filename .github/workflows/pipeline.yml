@@ -1,0 +1,16 @@
+name: Pipeline deploy API PROD on Render
+on:
+  push:
+    branches: ["PROD"]
+  pull_request:
+    branches: ["PROD"]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy Application
+      uses: johnbeynon/render-deploy-action@v0.0.8
+      with:
+        service-id: ${{secrets.DEPLOY_HOOK_API}}
+        api-key: ${{secrets.API_KEY}}
