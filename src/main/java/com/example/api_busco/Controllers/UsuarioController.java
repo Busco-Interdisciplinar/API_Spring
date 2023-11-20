@@ -1,6 +1,7 @@
 package com.example.api_busco.Controllers;
 
 import com.example.api_busco.Models.ApiResponse;
+import com.example.api_busco.Models.Base64Image;
 import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +89,9 @@ import org.springframework.web.bind.annotation.*;
         }
     }
 
-    @PatchMapping("/atualizarFoto/{id}/{foto}")
-    public ResponseEntity<ApiResponse> atualizarFoto(@PathVariable Integer id, @PathVariable String foto){
-        ApiResponse response = usuarioService.atualizarFoto(id, foto);
+    @PatchMapping("/atualizarFoto")
+    public ResponseEntity<ApiResponse> atualizarFoto(@RequestBody Base64Image base64Image){
+        ApiResponse response = usuarioService.atualizarFoto(base64Image);
         if (response.isResponseSucessfull()){
             return ResponseEntity.ok(response);
         }else{
