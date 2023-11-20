@@ -1,6 +1,7 @@
 package com.example.api_busco.Services;
 
 import com.example.api_busco.Models.ApiResponse;
+import com.example.api_busco.Models.Base64Image;
 import com.example.api_busco.Models.Usuarios;
 import com.example.api_busco.Repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,12 +142,12 @@ public class UsuarioService {
         }
     }
 
-    public ApiResponse atualizarFoto(Integer id, String foto){
+    public ApiResponse atualizarFoto(Base64Image base64Image){
         try {
-            Optional<Usuarios> usuarioFound = usuarioRepository.findById(id);
+            Optional<Usuarios> usuarioFound = usuarioRepository.findById(base64Image.getId());
             if (usuarioFound.isPresent()){
                 Usuarios usuarioEncontrado = usuarioFound.get();
-                usuarioEncontrado.setFoto(foto);
+                usuarioEncontrado.setFoto(base64Image.getImage());
                 Usuarios usuarioAlterado = usuarioRepository.save(usuarioEncontrado);
                 List<Object> usuarioList = new ArrayList<>();
                 usuarioList.add(usuarioAlterado);
