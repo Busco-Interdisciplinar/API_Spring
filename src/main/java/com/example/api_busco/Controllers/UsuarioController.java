@@ -99,7 +99,15 @@ import org.springframework.web.bind.annotation.*;
         }
     }
 
-
+    @PatchMapping("/atualizarUsuario")
+    public ResponseEntity<ApiResponse> atualizarUsuario(@RequestBody Usuarios usuario){
+        ApiResponse response = usuarioService.atualizarUsuario(usuario);
+        if (response.isResponseSucessfull()){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 
 //     @PutMapping("/atualizar/{id}")
 //     public ResponseEntity<String> atualizarProduto(@PathVariable Long id,
