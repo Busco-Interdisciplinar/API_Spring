@@ -159,4 +159,24 @@ public class UsuarioService {
             return new ApiResponse(false, "Falha ao buscar usuário", null, null);
         }
     }
+
+    public ApiResponse atualizarUsuario(Usuarios usuario){
+        try {
+            Usuarios usuarioFound = usuarioRepository.findByEmail(usuario.getEmail());
+            if (usuarioFound != null){
+                usuarioFound.setSenha(usuarioFound.getSenha());
+                usuarioFound.setEmail(usuarioFound.getEmail());
+                usuarioFound.setNome(usuarioFound.getNome());
+
+                Usuarios usuarioAlterado = usuarioRepository.save(usuarioFound);
+                List<Object> usuarioList = new ArrayList<>();
+                usuarioList.add(usuarioAlterado);
+                return new ApiResponse(true, "Usuário alterado com sucesso", usuarioList, null);
+            }else{
+                return new ApiResponse(false, "Usuário não encontrado no banco", null, null);
+            }
+        }catch (Exception exception){
+            return new ApiResponse(false, "Falha ao buscar usuário", null, null);
+        }
+    }
 }

@@ -1,0 +1,11 @@
+PATCH http://localhost:8181/api/usuarios/atualizarUsuario
+Content-Type: application/json
+
+{
+  "email": "lucasgsilva011073@gmail.com",
+  "senha": "busco123",
+  "cep": "05186-190",
+  "nome":"Lucas Guilherme da Silva",
+  "cpf": "48558381879",
+  "telefone": "11974882079"
+}
