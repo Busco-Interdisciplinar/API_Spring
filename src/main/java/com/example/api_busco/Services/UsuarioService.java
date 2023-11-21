@@ -164,10 +164,9 @@ public class UsuarioService {
         try {
             Usuarios usuarioFound = usuarioRepository.findByEmail(usuario.getEmail());
             if (usuarioFound != null){
-                usuarioFound.setSenha(usuarioFound.getSenha());
-                usuarioFound.setEmail(usuarioFound.getEmail());
-                usuarioFound.setNome(usuarioFound.getNome());
-
+                usuarioFound.setSenha(usuario.getSenha());
+                usuarioFound.setEmail(usuario.getEmail());
+                usuarioFound.setNome(usuario.getNome());
                 Usuarios usuarioAlterado = usuarioRepository.save(usuarioFound);
                 List<Object> usuarioList = new ArrayList<>();
                 usuarioList.add(usuarioAlterado);
